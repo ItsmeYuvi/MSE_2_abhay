@@ -12,7 +12,8 @@ const Dashboard = () => {
 
   const fetchGrievances = async () => {
     try {
-      const res = await axios.get('http://localhost:5000/api/grievances');
+      const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000';
+      const res = await axios.get(`${API_URL}/api/grievances`);
       setGrievances(res.data);
     } catch (err) {
       console.error(err);
@@ -30,7 +31,8 @@ const Dashboard = () => {
       return;
     }
     try {
-      const res = await axios.get(`http://localhost:5000/api/grievances/search?title=${searchTerm}`);
+      const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000';
+      const res = await axios.get(`${API_URL}/api/grievances/search?title=${searchTerm}`);
       setGrievances(res.data);
     } catch (err) {
       console.error(err);
@@ -45,7 +47,8 @@ const Dashboard = () => {
   const handleDelete = async (id) => {
     if(window.confirm('Are you sure you want to delete this grievance?')) {
       try {
-        await axios.delete(`http://localhost:5000/api/grievances/${id}`);
+        const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000';
+        await axios.delete(`${API_URL}/api/grievances/${id}`);
         fetchGrievances();
       } catch (err) {
         console.error(err);

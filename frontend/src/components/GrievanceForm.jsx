@@ -27,10 +27,11 @@ const GrievanceForm = ({ fetchGrievances, closeForm, editingGrievance }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
+      const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000';
       if (editingGrievance) {
-        await axios.put(`http://localhost:5000/api/grievances/${editingGrievance._id}`, formData);
+        await axios.put(`${API_URL}/api/grievances/${editingGrievance._id}`, formData);
       } else {
-        await axios.post('http://localhost:5000/api/grievances', formData);
+        await axios.post(`${API_URL}/api/grievances`, formData);
       }
       fetchGrievances();
       closeForm();
